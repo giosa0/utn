@@ -28,11 +28,13 @@ h = 0.1
 
 for i = 1:n
     if i<=80 
-        MATRIZB(i,1) = eval(int((1/E)*((x-i+1)/h)*(210.*x.^3/6-3190.*x.^2/2+19220.*x),x,i-1,i)+int((1/E)*((i-x+1)/h)*(210*x^3/6-3190*x^2/2+19220*x),x,i,i+1)); 
+        MATRIZB(i+1,1) = eval(int((1/E)*((x-i+1)/h)*(210.*x.^3/6-3190.*x.^2/2+19220.*x),x,i-1,i)+int((1/E)*((i-x+1)/h)*(210*x^3/6-3190*x^2/2+19220*x),x,i,i+1)); 
     elseif i>80 & i<100
-        MATRIZB(i,1) = eval(int((1/E)*((x-i+1)/h)*(210*x^3/6-2100*x^2/2+10500*x+34880),x,i-1,i)+int((1/E)*((i-x+1)/h)*(210*x^3/6-2100*x^2/2+10500*x+34880),x,i,i+1));
+        MATRIZB(i+1,1) = eval(int((1/E)*((x-i+1)/h)*(210*x^3/6-2100*x^2/2+10500*x+34880),x,i-1,i)+int((1/E)*((i-x+1)/h)*(210*x^3/6-2100*x^2/2+10500*x+34880),x,i,i+1));
     end
 end
+MATRIZB(1,1)=0
+MATRIZB(n,1)=0
 MATRIZMF = (1/h)*H;
 ALFA = (inv(MATRIZMF)*MATRIZB)*h;
 D = ALFA';

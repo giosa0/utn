@@ -1,0 +1,42 @@
+n = 100;
+H = zeros(n);
+for i = 1:n
+    for j = 1:n
+        if i == j
+            H(i,j) = 2;
+        elseif i == j-1
+            H(i,j) = -1;
+        elseif i == j+1
+            H(i,j) = -1;
+        end
+        if i == 1
+            H(i,j) = 0;
+        elseif i == n
+            H(i,j) = 0;
+        end
+    end
+end
+H(n,n) = 1;
+H(1,1) = 1;
+%H(n,n-1)=-1;
+%H(n,n-2)=2;
+MATRIZB = zeros(n,1)
+E = 1100000
+syms x
+
+h = 0.1
+
+for i = 1:n
+    if i<=80 
+        MATRIZB(i,1) = eval(int((1/E)*((x-i+1)/h)*(210.*x.^3/6-3190.*x.^2/2+19220.*x),x,i-1,i)+int((1/E)*((i-x+1)/h)*(210*x^3/6-3190*x^2/2+19220*x),x,i,i+1)); 
+    elseif i>80 & i<100
+        MATRIZB(i,1) = eval(int((1/E)*((x-i+1)/h)*(210*x^3/6-2100*x^2/2+10500*x+34880),x,i-1,i)+int((1/E)*((i-x+1)/h)*(210*x^3/6-2100*x^2/2+10500*x+34880),x,i,i+1));
+    end
+end
+MATRIZMF = (1/h)*H;
+ALFA = (inv(MATRIZMF)*MATRIZB)*h;
+D = ALFA';
+
+x = [0.1:0.1:10];
+plot(x,D)
+

@@ -23,8 +23,6 @@ for i = 1:n
 end
 M(n,n) = 1;
 M(1,1) = 1;
-%M(n,n-1)=-1;
-%M(n,n-2)=2;
 
 %FORMAMOS LA MATRIZ DE LOS b
 b1 = zeros(n,1);
@@ -36,15 +34,16 @@ for i = 2:n
         b1(i,1) = eval(int((1/E)*((x-i+2)/h)*(210*x^3/6-2100*x^2/2+3730*x+34880),x,i-1,i)+int((1/E)*((i-x)/h)*(210*x^3/6-2100*x^2/2+3730*x+34880),x,i,i+1));
     end
 end
-b1(1,1) = 0
-b1(n,1) = 0
+b1(1,1) = 0;
+b1(n,1) = 0;
+
 %MATRIZ DE DESPLAZAMIENTOS u
 u = M\b1;
 u = (u');
 x = [1:1:10];
-xi=[0:1/100:10]
-UU=(xi<=8).*((1/E)*(210*xi.^3/6-3190/2*xi.^2+12450*xi))+((xi>8)&(xi<=10)).*((1/E)*(210/6*xi.^3-2100/2*xi.^2+3730*xi+34880));
-plot(xi,UU)
+xi=[0:1/100:10];
+uanalitica=(xi<=8).*((1/E)*(210*xi.^3/6-3190/2*xi.^2+12450*xi))+((xi>8)&(xi<=10)).*((1/E)*(210/6*xi.^3-2100/2*xi.^2+3730*xi+34880));
+plot(xi,uanalitica);
 hold on
 plot(x,u);
 
